@@ -1,0 +1,2 @@
+docker-compose exec --user=laradock workspace bash
+docker-compose up -d nginx redis workspace mysql phpmyadmin
