@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                   name {{  $user->name }}
+                   name {{  Auth::user()->name }}
 
                 </div>
             </div>

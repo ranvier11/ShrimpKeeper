@@ -17,12 +17,12 @@ class TanksController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userId)
     {
         //$user = User::findOrFail($user);
-        $tanks = Tank::where('user_id', Auth::id())->get();
+        $tanks = Tank::where('user_id', $userId)->get();
         //$tanks_count = App\Tank::where('user_id', $user->id)->count();
-
+        //$tanks = Tank::all();
         return $this->sendResponse(TankResource::collection($tanks), Auth::user());
     }
 
