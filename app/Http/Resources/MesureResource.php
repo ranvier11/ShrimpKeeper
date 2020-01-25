@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TankResource extends JsonResource
+class MesureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,14 +16,16 @@ class TankResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'tank_id' => $this->tank_id,
+            'tempC' => $this->tempC,
+            'ph' => $this->ph,
+            'kh' => $this->kh,
+            'gh' => $this->gh,
+            'no3' => $this->no3,
+            'ppm' => $this->ppm,
+            'us' => $this->us,
+            'created_at' => $this->created_at,
             'description' => $this->description,
-            'started_at' => (string) $this->started_at,
-            'status' => (string) $this->status,
-            'user_id' => $this->user_id,
-            'number' => $this->number,
-            'capacity' => $this->capacity,
-            'shrimps' => $this->shrimps
           ];
     }
 }

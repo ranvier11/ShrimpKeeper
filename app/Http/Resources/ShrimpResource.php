@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TankResource extends JsonResource
+class ShrimpResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +17,8 @@ class TankResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
-            'started_at' => (string) $this->started_at,
-            'status' => (string) $this->status,
-            'user_id' => $this->user_id,
-            'number' => $this->number,
-            'capacity' => $this->capacity,
-            'shrimps' => $this->shrimps
+            'type' => $this->type,
+            'description' => $this->description
           ];
     }
 }

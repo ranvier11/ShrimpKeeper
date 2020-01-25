@@ -34,6 +34,14 @@ use Illuminate\Http\Request;
 
 //Route::resource('/tanks', 'TanksController')->middleware('auth:api');
 
+//test
+Route::get('/tanks/{user}', 'TanksController@index');
+Route::get('shrimps/', 'ShrimpsController@index');
+Route::get('shrimps/{id}', 'ShrimpsController@show');
+Route::get('measurements/{id}', 'MesurementController@index');
+
+Route::put('/tank/{tank}', 'TanksController@update');
+
 Route::prefix('auth')->group(function () {
     // Below mention routes are public, user can access those without any restriction.
     // Create New User
@@ -56,6 +64,13 @@ Route::prefix('auth')->group(function () {
         // Logout user from application
         Route::post('logout', 'AuthController@logout');
         Route::get('/tanks/{user}', 'TanksController@index');
+
+        Route::get('shrimps/', 'ShrimpsController@index');
+        Route::get('shrimps/{id}', 'ShrimpsController@show');
+
+        Route::post('/tank', 'TanksController@store');
+        Route::put('/tank/{tank}', 'TanksController@update');
+        //Route::post('/tank/{id}', 'TanksController@destroy');
     });
 });
 

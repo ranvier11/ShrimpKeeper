@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tank extends Model
 {
     protected $fillable = [
-        'name', 'capacity', 'number', 'status', 'description', 'started_at'
+        'user_id', 'name', 'capacity', 'number', 'status', 'description', 'started_at', 'shrimps'
     ];
 
     public function user()

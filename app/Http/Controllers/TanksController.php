@@ -76,7 +76,7 @@ class TanksController extends BaseController
         $tank->number = $input['number'];
         $tank->status = $input['status'];
         $tank->description = $input['description'];
-        $tank->shrimp_id = $input['shrimp_id'];
+        $tank->shrimps = $input['shrimps'];
         $tank->started_at = $input['started_at'];
         $tank->save();
 

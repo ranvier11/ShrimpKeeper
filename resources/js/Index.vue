@@ -1,7 +1,7 @@
 <template>
     <div id="main">
         <header id="header">
-            <h1>ShrimpKeeper</h1>
+
             <Menu />
         </header>
         <div id="content">
