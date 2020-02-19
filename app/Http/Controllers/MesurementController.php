@@ -74,7 +74,7 @@ class MesurementController extends BaseController
         $mesurement->description = $input['description'];
         $tank->save();
 
-        return $this->sendResponse($mesurement->toArray(), 'Mesurement updated successfully.');
+        return $this->sendResponse($mesurement->toArray(), 'Measurement updated successfully.');
     }
 
     /**
@@ -83,10 +83,11 @@ class MesurementController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mesurement $mesurement)
+    public function destroy($id)
     {
+        $mesurement = Mesurement::find($id);
         $mesurement->delete();
 
-        return $this->sendResponse($mesurement->toArray(), 'Mesurement deleted successfully.');
+        return $this->sendResponse($mesurement->toArray(), 'Measurement deleted successfully.');
     }
 }

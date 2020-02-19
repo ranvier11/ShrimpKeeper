@@ -19,11 +19,11 @@ class TankResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'started_at' => (string) $this->started_at,
-            'status' => (string) $this->status,
             'user_id' => $this->user_id,
             'number' => $this->number,
             'capacity' => $this->capacity,
-            'shrimps' => $this->shrimps
+            'shrimps' => $this->shrimps,
+            'tags' => $this->tags,
           ];
     }
 }

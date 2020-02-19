@@ -38,7 +38,7 @@ class TanksController extends BaseController
 
         $tank = Tank::create($input);
 
-        return $this->sendResponse($tank->toArray(), 'Tank created successfully');
+        return $this->sendResponse('Tank created successfully', 200);
     }
 
     /**
@@ -74,9 +74,9 @@ class TanksController extends BaseController
         $tank->name = $input['name'];
         $tank->capacity = $input['capacity'];
         $tank->number = $input['number'];
-        $tank->status = $input['status'];
         $tank->description = $input['description'];
         $tank->shrimps = $input['shrimps'];
+        $tank->tags = $input['tags'];
         $tank->started_at = $input['started_at'];
         $tank->save();
 

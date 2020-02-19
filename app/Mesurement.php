@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mesurement extends Model
 {
     protected $fillable = [
-        'tempC', 'ph', 'kh', 'gh', 'no3', 'ppm', 'us', 'description'
+        'tank_id','tempC', 'ph', 'kh', 'gh', 'no3', 'ppm', 'us', 'created_at','description'
     ];
 
     public function tank()

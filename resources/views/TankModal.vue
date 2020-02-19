@@ -1,7 +1,7 @@
 <template>
     <TankButton
     name="Add Tank"
-    @clicked="cardModal()"/>
+    @clicked="cardModal()" @reload="closeModal()"/>
 
 </template>
 
@@ -30,6 +30,9 @@ import TankModalTemplate from './TankModalTemplate.vue'
                         userId: this.userId,
                     }
                 })
+            },
+            closeModal() {
+                console.log('close');
             }
         },
         components: {

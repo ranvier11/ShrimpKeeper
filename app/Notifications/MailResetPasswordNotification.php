@@ -19,9 +19,8 @@ class MailResetPasswordNotification extends ResetPassword
      */
     public function __construct($token)
     {
-        parent::__construct($token)
+    parent::__construct($token);
     }
-
 
     /**
      * Get the notification's delivery channels.

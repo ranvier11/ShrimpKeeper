@@ -15,7 +15,7 @@ class AddShrimpsToTanksTable extends Migration
     {
         Schema::table('tanks', function (Blueprint $table) {
             //
-            $table->string('shrimps', 50);
+            //$table->string('shrimps', 50);
         });
     }
 

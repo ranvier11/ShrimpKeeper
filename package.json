@@ -29,9 +29,12 @@
         "@websanova/vue-auth": "^2.21.15-beta",
         "buefy": "^0.8.10",
         "bulma": "^0.8.0",
+        "chart.js": "^2.9.3",
         "es6-promise": "^4.2.8",
         "moment": "^2.24.0",
+        "vee-validate": "^3.2.4",
         "vue-axios": "^2.1.5",
+        "vue-chartjs": "^3.5.0",
         "vue-router": "^3.1.5",
         "vuetify": "^2.2.6"
     }

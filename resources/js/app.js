@@ -25,6 +25,8 @@ Vue.use(VueAxios, axios)
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 Vue.use(VueAuth, auth)
 Vue.use(Buefy)
+
+
 // Load App
 Vue.component('Index', Index)
 

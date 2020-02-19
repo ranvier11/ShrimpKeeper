@@ -1,78 +1,65 @@
 <template>
-    <form @submit="tankSubmit">
-                <div class="modal-card tank-modal">
-                    <header class="modal-card-head" >
-                        <p class="modal-card-title">{{ name ? name : "New Tank" }}</p>
+<ValidationObserver v-slot="{ handleSubmit }">
+    <form>
+        <div class="modal-card tank-modal">
+            <header class="modal-card-head">
+                <p class="modal-card-title">{{ name ? name : "New Tank" }}</p>
+            </header>
+            <section class="modal-card-body">
+                <b-tabs>
+                    <b-tab-item label="Tank" icon="cube">
+                        <ValidationProvider v-slot="{ errors }" rules="required">
+                            <b-field horizontal label="Name" :type="{ 'is-danger': errors[0]}" :message="errors"
+                                class="ten-down">
 
-                    </header>
-                    <section class="modal-card-body">
-                        <b-tabs>
-                            <b-tab-item label="Tank" icon="google-photos">
-                                <b-field horizontal label="Name" >
-                                    <b-input type="text">
-                                    </b-input>
-                                </b-field>
+                                <b-input type="text" v-model="name">
+                                </b-input>
+                            </b-field>
+                        </ValidationProvider>
+                        <ValidationProvider v-slot="{ errors }" rules="required">
+                            <b-field horizontal :type="{ 'is-danger': errors[0]}" :message="errors">
+                                <template slot="label">
+                                    Capacity
+                                    <b-tooltip type="is-dark" label="Capacity of Your tank">
+                                        <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+                                    </b-tooltip>
+                                </template>
+                                <b-numberinput v-model="capacity" controls-position="compact" min="0" max="1000"
+                                    size="is-small" type="is-info"></b-numberinput>
 
-                                <b-field horizontal label="Capacity" >
-                                    <b-numberinput v-model="capacity" controls-position="compact" min="0" max="1000" size="is-small" ></b-numberinput>
-                                </b-field>
-
-                                <b-field horizontal label="Number of shrimps" >
-                                    <b-numberinput v-model="number" class="tendown" controls-position="compact" min="0" max="10000" size="is-small" ></b-numberinput>
-                                </b-field>
-
-                                <b-field horizontal label="Started at" >
-                                    <b-datepicker size="is-samll" v-model="started_at"
-                                        placeholder="DD-MM-YYYY"
-                                        icon="calendar-today"
-                                        editable>
-                                    </b-datepicker>
-                                </b-field>
-                                <b-field horizontal label="Description" >
-                                    <b-input maxlength="200" type="textarea"></b-input>
-                                </b-field>
-                            </b-tab-item>
-                            <b-tab-item label="Shrimps">
-                                <!-- <b-tabs :size="size">
-                                    <b-tab-item label="Caridina">
-                                        <div class="shrimp-grid">
-                                            <div class="shrimp" v-for="shrimp in cariShrimps" :key="shrimp.id">
-
-                                                <img :src="'../img/' + shrimp.description + '.png'" width=80px v-on:click="addShrimp(shrimp.id, shrimpsTank)">
-                                                <p class="shrimp-tag"> {{ shrimp.name }} </p>
-                                            </div>
-                                        </div>
-                                    </b-tab-item>
-                                    <b-tab-item label="Neocaridina">
-                                        <div class="shrimp-grid">
-                                            <div class="shrimp" v-for="shrimp in neoShrimps" :key="shrimp.id">
-
-                                                <img :src="'../img/' + shrimp.description + '.png'" width=80px>
-                                                <p class="shrimp-tag"> {{ shrimp.name }} </p>
-                                            </div>
-                                        </div>
-                                    </b-tab-item>
-                                    <b-tab-item label="Other" disabled>
-                                        <div class="shrimp-grid">
-                                            <div class="shrimp" v-for="shrimp in otherShrimps" :key="shrimp.id">
-
-                                                <img :src="'../img/' + shrimp.description + '.png'" width=80px>
-                                                <p class="shrimp-tag"> {{ shrimp.name }} </p>
-                                            </div>
-                                        </div>
-                                    </b-tab-item>
-                                </b-tabs> -->
-                                <Shrimps :shrimpsTank="shrimpsTank"
-                                 ></Shrimps>
-                            </b-tab-item>
-                        </b-tabs>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <button class="button" type="button" @click="$parent.close()">Close</button>
-                        <button class="button is-primary">Save</button>
-                    </footer>
-                </div>
-            </form>
+                            </b-field>
+                        </ValidationProvider>
+                        <b-field horizontal >
+                            <template slot="label">
+                                    Number of shrimps
+                                    <b-tooltip type="is-dark" label="Enter the number of shrimps to select shrimp types" multilined>
+                                        <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+                                    </b-tooltip>
+                                </template>
+                            <b-numberinput v-model="number" class="tendown" controls-position="compact" min="0"
+                                max="10000" size="is-small" type="is-info" @input="anyShrimpsSwitch()"></b-numberinput>
+                        </b-field>
+                        <b-field horizontal label="Started at">
+                            <b-datepicker size="is-samll" v-model="started_at" placeholder="DD-MM-YYYY"
+                                icon="calendar-today" editable>
+                            </b-datepicker>
+                        </b-field>
+                        <b-field horizontal label="Description">
+                            <b-input maxlength="200" type="textarea"></b-input>
+                        </b-field>
+                    </b-tab-item>
+                    <b-tab-item label="Shrimps" icon="bug" :disabled="anyShrimps">
+                        <Shrimps :shrimpsTank="shrimpsTank"></Shrimps>
+                    </b-tab-item>
+                </b-tabs>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" type="button" @click="$parent.close()">Close</button>
+                <button class="button is-info" @click.prevent="handleSubmit(tankSubmit)">Save</button>
+            </footer>
+        </div>
+    </form>
+</ValidationObserver>
 </template>
 
 <script>
@@ -80,29 +67,30 @@ import axios from 'axios'
 import moment from 'moment'
 import Measures from './Measures.vue'
 import Shrimps from './Shrimps.vue'
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
+import { extend } from 'vee-validate';
+import { required } from "vee-validate/dist/rules";
 
-var dateoptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+extend("required", {
+  ...required,
+  message: "This field is required"
+});
+
+//var dateoptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
 export default {
     props: {
         userId: {
             type: Number
         },
-
-        // shrimpsTank: {
-        //     type: Array,
-        //     default: function () {
-        //         return
-        //     }
-        // }
     },
     data() {
         return {
             tankId: null,
             name: null,
             capacity: null,
-            number: null,
-            started_at: null,
+            number: 0,
+            started_at: new Date(),
             description: '',
             loading: false,
             shrimps: [],
@@ -115,58 +103,35 @@ export default {
             isDisabled: true,
             result: [],
             size: "is-small",
-            childShrimps:[]
+            childShrimps:[],
+            error: null,
+            anyShrimps: true
         }
     },
     created() {
-        //this.fetchData();
+
     },
+
     methods: {
-        // fetchData() {
-        //     this.error = null;
-        //     this.loading = true;
-
-        //     axios
-        //         .all([axios.get('/shrimps'), axios.get('/measurements/' + this.tankId)])
-        //         .then(responseArr => {
-        //             this.shrimps = responseArr[0].data.data;
-        //             this.measures = responseArr[1].data.data;
-        //             this.loading = false;
-        //             this.shrimpSort(this.shrimps);
-
-        //         }).catch(error => {
-        //             this.loading = false;
-        //             this.error = error.response.data.message;
-        //         });
-        // },
-
-        // shrimpSort(/*array*/shrimps) {
-        //     shrimps.forEach(element => {
-        //         if(element.type == 'caridina'){
-        //             this.cariShrimps.push(element);
-        //         } else if (element.type == 'neocaridina'){
-        //             this.neoShrimps.push(element);
-        //         } else {
-        //             this.otherShrimps.push(element);
-        //         }
-        //     });
-        // },
-        tankSubmit(e) {
-            e.preventDefault;
+        tankSubmit() {
             let currentObj = this;
-            this.axios.post('auth/tank', {
+            let data = {
                 user_id: this.userId,
                 name: this.name,
                 capacity: this.capacity,
                 number: this.number,
                 description: this.description,
                 started_at: moment(Date.parse(this.started_at)).format('YYYY-MM-DD'),
-                shrimps: this.shrimpsTank.join(',')
-            }).then(function (response) {
+                shrimps: this.shrimpsTank.join(',')};
+            this.axios.post('auth/tank', data
 
-                    this.result = response.data;
-                    this.$buefy.toast.open({
-                    message: 'Tank ' + this.name + 'created',
+            ).then(function (response) {
+                    currentObj.result = response;
+                    console.log(response);
+                    currentObj.$parent.close();
+                    currentObj.$router.go();
+                    currentObj.$buefy.toast.open({
+                    message: 'Tank created',
                     type: 'is-success'
                     });
                 })
@@ -178,21 +143,44 @@ export default {
         addShrimp(id, /*array*/ shrimps) {
             shrimps.push(id);
             return shrimps;
+        },
+        // enable shrimps tab
+        anyShrimpsSwitch() {
+            if (this.number > 0) {
+                this.anyShrimps = false;
+            } else {
+                this.anyShrimps = true;
+            }
+        },
+        validate() {
+
         }
 
 
     },
     components: {
         Measures,
-        Shrimps
+        Shrimps,
+        ValidationProvider,
+        ValidationObserver
     }
 }
 </script>
-<style>
+<style scoped>
 
 .tank-modal {
     width: 640px;
     height: 500px;
+}
+.ten-down {
+    margin-bottom: 10px;
+}
+.modal-card-head {
+    background-color: dimgrey;
+
+}
+.modal-card-title {
+color: whitesmoke;
 }
 
 

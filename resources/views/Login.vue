@@ -1,24 +1,27 @@
 <template>
+
+
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-6">
         <div class="card card-default">
-          <div class="card-header">Login</div>
+         <header class="modal-card-head">
+                <p class="modal-card-title">Login</p>
+            </header>
           <div class="card-body">
             <div class="alert alert-danger" v-if="has_error && !success">
               <p v-if="error == 'login_error'">Validation Errors.</p>
               <p v-else>Error, unable to connect with these credentials.</p>
             </div>
             <form autocomplete="off" @submit.prevent="login" method="post">
-              <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email" required>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" v-model="password" required>
-              </div>
+              <b-field label="Email">
+                <b-input type="email" id="email" placeholder="user@example.com" v-model="email" required></b-input>
+              </b-field>
+              <b-field label="Password">
+                <b-input type="password" id="password" v-model="password" required password-reveal></b-input>
+              </b-field>
               <button type="submit" class="btn btn-primary">Signin</button>
+              <b-button type="is-info" @click="demo()">Demo</b-button>
             </form>
           </div>
         </div>
@@ -26,6 +29,7 @@
     </div>
   </div>
 </template>
+
 <script>
 
   export default {
@@ -55,20 +59,28 @@
             // handle redirection
             app.success = true
 
-            const redirectTo = 'dashboard'
+            const redirectTo = 'tanks'
             this.$router.push({name: redirectTo})
 
           },
           error: function() {
             app.has_error = true
-            //app.error = res.response.data.error
-            //console.log('error' + error)
+            //app.error = err;
+            app.$buefy.toast.open('Incorrect login or password');
+            console.log(app.res);
           },
+
+
           rememberMe: true,
           fetchUser: true
 
         })
-      }
+      },
+      demo() {
+                this.email = "test@test";
+                this.password = "testtest";
+                this.login();
+            },
     }
   }
 

@@ -35,12 +35,13 @@ use Illuminate\Http\Request;
 //Route::resource('/tanks', 'TanksController')->middleware('auth:api');
 
 //test
-Route::get('/tanks/{user}', 'TanksController@index');
+// Route::get('/tanks/{user}', 'TanksController@index');
 Route::get('shrimps/', 'ShrimpsController@index');
-Route::get('shrimps/{id}', 'ShrimpsController@show');
-Route::get('measurements/{id}', 'MesurementController@index');
-
-Route::put('/tank/{tank}', 'TanksController@update');
+// Route::get('shrimps/{id}', 'ShrimpsController@show');
+// Route::get('measurements/{id}', 'MesurementController@index');
+// Route::post('/measurement', 'MesurementController@store');
+// Route::put('/tank/{tank}', 'TanksController@update');
+// Route::delete('/measurement/{id}', 'MesurementController@destroy');
 
 Route::prefix('auth')->group(function () {
     // Below mention routes are public, user can access those without any restriction.
@@ -63,14 +64,20 @@ Route::prefix('auth')->group(function () {
         Route::get('user', 'AuthController@user');
         // Logout user from application
         Route::post('logout', 'AuthController@logout');
-        Route::get('/tanks/{user}', 'TanksController@index');
 
+        // Shrimps table
         Route::get('shrimps/', 'ShrimpsController@index');
         Route::get('shrimps/{id}', 'ShrimpsController@show');
-
+        // Tanks table
+        Route::get('/tanks/{user}', 'TanksController@index');
         Route::post('/tank', 'TanksController@store');
         Route::put('/tank/{tank}', 'TanksController@update');
-        //Route::post('/tank/{id}', 'TanksController@destroy');
+        Route::delete('/tank/{tank}', 'TanksController@destroy');
+        // measurement table
+        Route::get('/measurement/{tank}', 'MesurementController@index');
+        Route::post('/measurement', 'MesurementController@store');
+        Route::put('/measurement', 'MesurementController@update');
+        Route::delete('/measurement/{id}', 'MesurementController@destroy');
     });
 });
 

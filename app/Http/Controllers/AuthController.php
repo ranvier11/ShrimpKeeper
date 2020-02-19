@@ -8,9 +8,13 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Auth;
 use Validator;
 use App\User;
+use Hash;
+use Illuminate\Auth\Events\PasswordReset;
 
 class AuthController extends Controller
 {
+// use SendsPasswordResetEmails;
+// use ResetsPasswords;
     /**
      * Register a new user
      */
@@ -97,19 +101,20 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the response for a successful password reset link.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
+    * Get the response for a successful password reset link.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param string $response
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+    */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        return response()->json([
-            'message' => 'Password reset email sent.',
-            'data' => $response
-        ]);
+    return response()->json([
+    'message' => 'Password reset email sent.',
+    'data' => $response
+    ]);
     }
+
     /**
      * Get the response for a failed password reset link.
      *
@@ -151,7 +156,7 @@ class AuthController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetResponse(Request $request, $response)
+    protected function sendResetResponse($response)
     {
         return response()->json(['message' => 'Password reset successfully.']);
     }
