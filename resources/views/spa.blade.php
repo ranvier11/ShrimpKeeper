@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}"/>
 </head>
 <body>
   <div id="app">

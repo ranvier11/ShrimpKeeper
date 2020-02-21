@@ -13,7 +13,7 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class AuthController extends Controller
 {
-// use SendsPasswordResetEmails;
+    //use SendsPasswordResetEmails;
 // use ResetsPasswords;
     /**
      * Register a new user

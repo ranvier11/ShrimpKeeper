@@ -21,7 +21,7 @@ class CreateTanksTable extends Migration
             $table->smallInteger('capacity');
             $table->smallInteger('number')->nullable();
             $table->enum('status', [0, 1]);
-            $table->text('decription')->nullable();
+            $table->text('description')->nullable();
             $table->date('started_at');
             $table->timestamps();
 
