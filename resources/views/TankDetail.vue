@@ -29,7 +29,7 @@
                 <div class="column is-half">
                     <div class="panel">
                     <p class="panel-heading">Shrimps </p>
-                    <Shrimps :shrimpsTank="shrimpSplit(row.shrimps)" @update="addShrimps" @shrimps-count="showCounter"></Shrimps>
+                    <Shrimps :shrimpsTank="shrimpSplit(row.shrimps)" @update="addShrimps"></Shrimps>
                     </div>
                 </div>
                 <div class="column is-half ">
@@ -53,20 +53,11 @@ import Measures from './Measures.vue'
 export default {
 
     props: {
-            // name: String,
-            // tankId: Number,
-            // capacity: Number,
-            // number: Number,
-            // shrimps: String,
-            // description: String,
-            // started_at: String,
             row: null,
             index: null,
             tankTags: {
             type: Array
             },
-            //shrimpsArr: [],
-
         },
     data() {
         return {
@@ -81,7 +72,7 @@ export default {
 
     },
     methods: {
-        closeDetails(row) {
+        closeDetails(/*Object*/ row) {
             console.log(this.shrimpsToUpdate);
             //close table row
             this.$parent.closeDetailRow(row);
@@ -121,13 +112,9 @@ export default {
             }
             return shrimpsArr;
         },
-        addShrimps (shrimps) {
+        addShrimps (/*Array*/ shrimps) {
             this.shrimpsToUpdate = shrimps;
             console.log(this.shrimpsToUpdate);
-        },
-        showCounter(counter) {
-            this.shrimpsCounter++;
-            //console.log(this.shrimpsCounter);
         },
         tagsActiv(tagsInTank) {
             tagsInTank.forEach(element => {
@@ -139,18 +126,7 @@ export default {
                 });
             });
         },
-        tagsClick(name) {
-            // this.tagsUpdate = this.tankTags;
-            // if (this.tagsUpdate.includes(name)) {
-            //     for (let i = 0; i < this.tagsUpdate.length; i++) {
-            //         if (this.tagsUpdate[i] === name) {
-            //             this.tagsUpdate.splice(i, 1);
-            //         }
-            //     }
-            // } else {
-            //     this.tankTags.push(name);
-            // }
-
+        tagsClick(/*String*/ name) {
             if (this.tagsUpdate.includes(name)) {
                 for (var i = 0; i < this.tagsUpdate.length; i++) {
                     if(this.tagsUpdate[i] == name) {
@@ -170,11 +146,11 @@ export default {
                 tag.type = 'is-light';
             }
         },
-        displayTags(tags, tagsInTank){
+        displayTags(/*String*/ tags, /*Array*/ tagsInTank){
             let str = '';
             tags.forEach(element => {
                 if(tagsInTank.includes(element)) {
-                    str += '<span class="tag is-info" @click.native="tagsClick('+element+'); tagActive(tag)"><span>' + element + '</span></span>';
+                    str += '<span class="tag is-info" @click.native="tagsClick('+ element +'); tagActive(tag)"><span>' + element + '</span></span>';
                 } else {
                     str +='<span class="tag is-light"><span>' + element + '</span></span>';
                 }

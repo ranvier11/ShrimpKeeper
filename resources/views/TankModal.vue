@@ -24,7 +24,6 @@ import TankModalTemplate from './TankModalTemplate.vue'
                     parent: this,
                     component: TankModalTemplate ,
                     hasModalCard: true,
-                    //customClass: 'custom-class custom-class-2',
                     trapFocus: true,
                     props: {
                         userId: this.userId,
@@ -32,7 +31,7 @@ import TankModalTemplate from './TankModalTemplate.vue'
                 })
             },
             closeModal() {
-                console.log('close');
+                //console.log('close');
             }
         },
         components: {

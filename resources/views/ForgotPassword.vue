@@ -30,9 +30,16 @@ export default {
         requestResetPassword() {
             this.$http.post("/auth/reset-password", {email: this.email}).then(result => {
                 this.response = result.data;
-                console.log(result.data);
+                this.$buefy.toast.open({
+                    message: result.data.message,
+                    type: 'is-success'
+                    });
             }, error => {
                 console.error(error);
+                this.$buefy.toast.open({
+                    message: error,
+                    type: 'is-danger'
+                    });
             });
         }
     }

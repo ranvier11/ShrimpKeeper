@@ -76,7 +76,7 @@ extend("required", {
   message: "This field is required"
 });
 
-//var dateoptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+
 
 export default {
     props: {
@@ -94,9 +94,6 @@ export default {
             description: '',
             loading: false,
             shrimps: [],
-            //cariShrimps: [],
-            //neoShrimps: [],
-            //otherShrimps: [],
             shrimpsTank: [],
             measures: [],
             edit: false,
@@ -127,7 +124,7 @@ export default {
 
             ).then(function (response) {
                     currentObj.result = response;
-                    console.log(response);
+                    //console.log(response);
                     currentObj.$parent.close();
                     currentObj.$router.go();
                     currentObj.$buefy.toast.open({
@@ -136,7 +133,11 @@ export default {
                     });
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    //console.log(error);
+                    currentObj.$buefy.toast.open({
+                    message: error,
+                    type: 'is-danger'
+                    });
         });
         },
         // populate tank's shrimps array

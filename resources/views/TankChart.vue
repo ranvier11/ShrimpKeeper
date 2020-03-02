@@ -5,7 +5,7 @@
             <p class="modal-card-title">Tank charts</p>
         </header>
         <section class="modal-card-body" >
-            <b-tabs v-on:input="log" v-if="!loading">
+            <b-tabs v-if="!loading">
                 <b-tab-item label="ph" >
                     <line-chart  :chartData="chartData.phData" :options="chartOptions"/>
                 </b-tab-item>
@@ -48,6 +48,7 @@ export default {
                 measurements: [],
                 ph: [],
                 phLabels: [],
+                gradient: null,
                 phData: {
                         labels: [],
                         datasets: [{
@@ -55,6 +56,21 @@ export default {
                             data: [],
                         }]
                 },
+                // backgroundColor: [
+//                                 'rgba(255, 99, 132, 0.2)',
+//                                 'rgba(54, 162, 235, 0.2)',
+//                                 'rgba(255, 206, 86, 0.2)',
+//                                 'rgba(75, 192, 192, 0.2)',
+//                                 'rgba(153, 102, 255, 0.2)',
+//                                 'rgba(255, 159, 64, 0.2)'
+//                             ],
+//                             borderColor: [
+//                                 'rgba(255, 99, 132, 1)',
+//                                 'rgba(54, 162, 235, 1)',
+//                                 'rgba(255, 206, 86, 1)',
+//                                 'rgba(75, 192, 192, 1)',
+//                                 'rgba(153, 102, 255, 1)',
+//                                 'rgba(255, 159, 64, 1)'
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! array
                 chartData: {
                     phData: {
@@ -62,30 +78,19 @@ export default {
                         datasets: [{
                             label: 'ph',
                             data: [],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
+                            backgroundColor: 'rgba(15, 119, 234, 0.5)',
+                            borderColor: 'rgba(12, 95, 180, 1)',
+                            borderWidth: 2
                         }, ]
                     },
                     ghData: {
                         labels: [],
                         datasets: [{
-
+                            label: 'gh',
                             data: [],
+                            backgroundColor: 'rgba(34, 198, 91, 0.5)',
+                            borderColor: 'rgba(28, 158, 144, 1)',
+                            borderWidth: 2
                         }],
                     },
                     tempData: {
@@ -93,6 +98,9 @@ export default {
                         datasets: [{
                             label: 'temp',
                             data: [],
+                            backgroundColor: 'rgba(121, 87, 213, 0.5)',
+                            borderColor: 'rgba(95, 79, 75, 1)',
+                            borderWidth: 2
                         }],
                     },
                     khData: {
@@ -100,27 +108,39 @@ export default {
                         datasets: [{
                             label: 'kh',
                             data: [],
+                            backgroundColor: 'rgba(255, 221, 87, 0.5)',
+                            borderColor: 'rgba(205, 188, 70, 1)',
+                            borderWidth: 2
                         }],
                     },
                     no3Data: {
                         labels: [],
                         datasets: [{
-                            label: 'temp',
+                            label: 'no3',
                             data: [],
+                            backgroundColor: 'rgba(255, 56, 96, 0.5)',
+                            borderColor: 'rgba(205, 45, 80, 1)',
+                            borderWidth: 2
                         }],
                     },
                     ppmData: {
                         labels: [],
                         datasets: [{
-                            label: 'temp',
+                            label: 'ppm',
                             data: [],
+                            backgroundColor: 'rgba(32, 156, 238, 0.5)',
+                            borderColor: 'rgba(26, 126, 195, 1)',
+                            borderWidth: 2
                         }],
                     },
                     usData: {
                         labels: [],
                         datasets: [{
-                            label: 'temp',
+                            label: 'us',
                             data: [],
+                            backgroundColor: 'rgba(32, 156, 238, 0.5)',
+                            borderColor: 'rgba(26, 126, 195, 1)',
+                            borderWidth: 2
                         }],
                     },
                 },
@@ -173,7 +193,7 @@ export default {
                     return [label,data];
             },
             log () {
-                console.log(this.$options);
+                //console.log(this.$options);
             }
         },
         created() {

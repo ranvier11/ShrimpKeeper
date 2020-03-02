@@ -81,14 +81,22 @@ export default {
     },
     methods: {
         closeDetails() {
-            console.log(this.shrimpsToUpdate);
             //close table row
+            this.$emit('reload');
             this.$parent.close();
             //reload tanks
-            this.$parent.$parent.fetchData();
         },
         updateTank(/*number*/ tankId, /*Object*/ data) {
-            //console.log(tags);
+            var shrimps;
+            if (this.shrimpsToUpdate.length == 0){
+                if (this.row.shrimps.length == 0){
+                shrimps = '';
+                } else {
+                    shrimps = this.row.shrimps;
+                }
+            } else {
+                shrimps = this.shrimpsToUpdate.join(',');
+            }
              axios.put('/auth/tank/' + tankId, {
                 user_id: data.userId,
                 name: data.name,
@@ -97,8 +105,8 @@ export default {
                 description: data.description,
                 started_at: moment(Date.parse(data.started_at)).format('YYYY-MM-DD'),
                 tags: this.tagsUpdate.join(','),
-                shrimps: this.shrimpsToUpdate.join(',')
-            }).then(console.log).then((response)=> {
+                shrimps: shrimps
+            }).then((response)=> {
 
                 this.message = 'Tank ' + data.name + ' updated';
                 this.$buefy.toast.open({
@@ -106,8 +114,11 @@ export default {
                     type: 'is-success'
                     });
             }).catch(error => {
-                console.log(error)
-            });
+                this.$buefy.toast.open({
+                    message: error,
+                    type: 'is-danger'
+                    });
+            }).then(()=> this.$parent.$parent.fetchData());
         },
         shrimpSplit(/*String*/ shrimps) {
             var shrimpsArr = [];
@@ -122,7 +133,7 @@ export default {
         },
         addShrimps (shrimps) {
             this.shrimpsToUpdate = shrimps;
-            console.log(this.shrimpsToUpdate);
+            //console.log(this.shrimpsToUpdate);
         },
         showCounter(counter) {
             this.shrimpsCounter++;
@@ -133,31 +144,20 @@ export default {
                 this.tags.forEach(tag => {
                     if(element == tag.name){
                         tag.type = 'is-info';
-                        console.log(this.tags);
+                        //console.log(this.tags);
                     }
                 });
             });
         },
         tagsClick(name) {
-            // this.tagsUpdate = this.tankTags;
-            // if (this.tagsUpdate.includes(name)) {
-            //     for (let i = 0; i < this.tagsUpdate.length; i++) {
-            //         if (this.tagsUpdate[i] === name) {
-            //             this.tagsUpdate.splice(i, 1);
-            //         }
-            //     }
-            // } else {
-            //     this.tankTags.push(name);
-            // }
-
             if (this.tagsUpdate.includes(name)) {
                 for (var i = 0; i < this.tagsUpdate.length; i++) {
                     if(this.tagsUpdate[i] == name) {
-                        console.log(this.tagsUpdate[i]);
+                        //console.log(this.tagsUpdate[i]);
                         this.tagsUpdate.splice(i, 1);
                     }
                 }
-                console.log(this.tagsUpdate);
+                //console.log(this.tagsUpdate);
             } else {
                 this.tagsUpdate.push(name);
             }
@@ -169,17 +169,6 @@ export default {
                 tag.type = 'is-light';
             }
         },
-        displayTags(tags, tagsInTank){
-            let str = '';
-            tags.forEach(element => {
-                if(tagsInTank.includes(element)) {
-                    str += '<span class="tag is-info" @click.native="tagsClick('+element+'); tagActive(tag)"><span>' + element + '</span></span>';
-                } else {
-                    str +='<span class="tag is-light"><span>' + element + '</span></span>';
-                }
-            })
-            return str;
-        }
     },
     created() {
         this.$options.localRow = this.row;

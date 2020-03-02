@@ -61,7 +61,7 @@
 
                 <b-table-column label="Actions">
                     <b-tooltip label="Edit & details" type="is-light">
-                    <b-icon icon="pencil" type="is-success" class="icon-border" @click.native="openDetailsModal(props.row, props.index, tags, )"></b-icon>
+                    <b-icon icon="pencil" type="is-success" class="icon-border" @reload="fetchData()" @click.native="openDetailsModal(props.row, props.index, tags, )"></b-icon>
                     </b-tooltip>
                     <b-tooltip label="Delete tank" type="is-light">
                     <b-icon icon="delete" :disabled="saving" type="is-danger" class="icon-border" @click.native="deleteTankDialog(props.row.name, props.row.id)"></b-icon>
@@ -171,10 +171,10 @@ export default {
                     this.tanks = response[1].data.data;
                     if (this.tanks.length > 0){this.noTanks = false;}
                     vue.isLoading = false;
-                    console.log(this.tanks);
+                    //console.log(this.tanks);
 
                 }).catch(function (error) {
-                    console.log( error);
+                    //console.log( error);
                     vue.isLoading = false;
 
                 });
@@ -185,13 +185,15 @@ export default {
                 //console.log(shrimpsStr);
                 if (shrimpsStr != null) {
                     let i = shrimpsStr.length;
+                    //console.log("row");
                     while (i--) {
                         if (shrimpsStr != '' && shrimpsStr.charAt(i) != ',') {
                             shrimpsArr.forEach(function (item) {
-                                if (shrimpsStr.charAt(i) == item.id && shrimpsStr.charAt(i) != 0)
+                                if (shrimpsStr.charAt(i) == item.id && shrimpsStr.charAt(i) != 0){
                                     part = '<div class="img-tooltip"> <img src="../img/' + item.description + '.png" width="40px"><span>' + item.name + '</span></div>';
+                                    str = str + part;
+                                }
                             })
-                            str = str + part;
                         }
                     }
                 }
@@ -210,8 +212,14 @@ export default {
                     row: row,
                     index: index,
                     tankTags: tags
+                },
+                on: {
+                    reload: ()=>{
+                        console.log('reload');
+                        this.fetchData();
+                    }
                 }
-            })
+            });
         },
         deleteTank(/*number*/ tankId) {
             this.saving = true;
@@ -224,7 +232,7 @@ export default {
                     });
                 this.fetchData();
             }).catch(error => {
-                console.log(error)
+                //console.log(error)
             });
         },
         deleteTankDialog(name, id) {

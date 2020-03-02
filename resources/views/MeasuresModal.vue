@@ -12,46 +12,55 @@
                     </div>
                 </b-field>
                 <b-field grouped group-multiline>
-                    <b-field  label="°C" v-bind:class="{ hide: isF }" >
-                       <b-numberinput v-model="tempC" controls-position="compact" min="15" max="35"  type="is-dark" size="is-small"></b-numberinput>
+                    <b-field label="°C" v-bind:class="{ hide: isF }">
+                        <b-numberinput v-model="tempC" controls-position="compact" min="15" max="35" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
-                    <b-field  label="°F" v-bind:class="{ hide: !isF }">
-                       <b-numberinput v-model="tempF" controls-position="compact" min="50" max="95"  type="is-dark" size="is-small" ></b-numberinput>
+                    <b-field label="°F" v-bind:class="{ hide: !isF }">
+                        <b-numberinput v-model="tempF" controls-position="compact" min="50" max="95" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
-                    <b-field  label="Ph" >
-                        <b-numberinput v-model="ph" controls-position="compact" min="3" max="9"  type="is-dark" size="is-small" step="0.1"></b-numberinput>
+                    <b-field label="Ph">
+                        <b-numberinput v-model="ph" controls-position="compact" min="3" max="9" type="is-dark"
+                            size="is-small" step="0.1"></b-numberinput>
                     </b-field>
-                    <b-field  label="Kh" >
-                        <b-numberinput v-model="kh" controls-position="compact" min="0" max="25"  type="is-dark" size="is-small"></b-numberinput>
+                    <b-field label="Kh">
+                        <b-numberinput v-model="kh" controls-position="compact" min="0" max="25" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
-                    <b-field  label="Gh" >
-                        <b-numberinput v-model="gh" controls-position="compact" min="0" max="25"  type="is-dark" size="is-small"></b-numberinput>
+                    <b-field label="Gh">
+                        <b-numberinput v-model="gh" controls-position="compact" min="0" max="25" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
-                    <b-field  label="NO₃" >
-                        <b-numberinput v-model="no3" controls-position="compact" min="0" max="25"  type="is-dark" size="is-small"></b-numberinput>
+                    <b-field label="NO₃">
+                        <b-numberinput v-model="no3" controls-position="compact" min="0" max="25" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
-<ValidationProvider v-slot="{ errors }" rules="required">
-                    <b-field label="Ppm" v-bind:class="{ hide: isPpm }" :type="{ 'is-danger': errors[0]}" :message="errors">
+                    <ValidationProvider v-slot="{ errors }" rules="required">
+                        <b-field label="Ppm" v-bind:class="{ hide: isPpm }" :type="{ 'is-danger': errors[0]}"
+                            :message="errors">
 
-                        <b-numberinput  v-model="ppm" controls-position="compact" min="0" max="1000"  type="is-dark" size="is-small"></b-numberinput>
-                    </b-field>
+                            <b-numberinput v-model="ppm" controls-position="compact" min="0" max="1000" type="is-dark"
+                                size="is-small"></b-numberinput>
+                        </b-field>
                     </ValidationProvider>
                     <b-field label="µS" v-bind:class="{ hide: !isPpm }">
-                        <b-numberinput  v-model="us" controls-position="compact" min="0" max="1000"  type="is-dark" size="is-small"></b-numberinput>
+                        <b-numberinput v-model="us" controls-position="compact" min="0" max="1000" type="is-dark"
+                            size="is-small"></b-numberinput>
                     </b-field>
                     <b-field label="Started at">
-                            <b-datepicker size="is-samll" v-model="created_at" placeholder="DD-MM-YYYY"
-                                icon="calendar-today" editable>
-                            </b-datepicker>
-                        </b-field>
+                        <b-datepicker size="is-samll" v-model="created_at" placeholder="DD-MM-YYYY"
+                            icon="calendar-today" editable>
+                        </b-datepicker>
+                    </b-field>
                 </b-field>
             </section>
             <footer class="modal-card-foot">
 
-                        <button class="button" type="button" @click="$parent.close()">Close</button>
-                        <button class="button is-primary" @click="addMes()">Save</button>
+                <button class="button" type="button" @click="$parent.close()">Close</button>
+                <button class="button is-primary" @click="addMes()">Save</button>
 
-                    </footer>
+            </footer>
 
         </div>
     </form>
@@ -106,13 +115,13 @@ export default {
                 description: this.desc,
             }).then(function (response) {
                 this.result = response;
-                console.log(this.result);
+                //console.log(this.result);
                 this.$buefy.toast.open({
                     message: 'Measure successfully added',
                     type: 'is-success'
                     });
             }).catch(error => {
-                console.log(error.response)
+                //console.log(error.response)
             });
         },
         deleteMes(id) {

@@ -68,7 +68,6 @@ export default {
     data() {
         return {
         isEmpty: false,
-        //dataStarted_at: new Date(Date.parse(this.row.started_at)),
         measurements: [],
         loading: false,
         error: null,
@@ -85,20 +84,22 @@ export default {
     },
 
     methods: {
-        fetchMes(tankId) {
+        //get measures from database by tank id
+        fetchMes(/*Number*/tankId) {
             this.error = null;
             this.loading = true;
                 axios.get('auth/measurement/' + this.tankId)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
                     this.measurements = response.data.data;
                     this.loading = false;
                 }).catch(error => {
                     this.loading = false;
                     this.error = error.response.message;
-                    console.log(this.error);
+                    //console.log(this.error);
                 });
         },
+        // convert temperature from C to F
         tempConvert(temp, tempF) {
             if(tempF) {
                 temp = (temp * 1.8) + 32;
@@ -108,7 +109,8 @@ export default {
                 return Math.floor(temp);
             }
         },
-        deleteMes (id, tankId) {
+        // delete measure from base by id and tank id
+        deleteMes (/*Number*/id, tankId) {
             axios.delete('/auth/measurement/' + id)
             .then((response)=> {
                 this.message = 'Deleted';
@@ -117,11 +119,12 @@ export default {
                     type: 'is-danger'
                     });
                 this.fetchMes(tankId);
-                console.log(response);
+                //console.log(response);
             }).catch(error => {
-                console.log(error)
+                //console.log(error)
             });
         },
+        // show delete confirmation than delete
         deleteMesDialog(id, tankId) {
             this.$buefy.dialog.confirm({
                 title: 'Deleting measure',
@@ -134,6 +137,7 @@ export default {
         },
     },
     created() {
+        // on created get data
         this.fetchMes(this.tankId);
     },
     components: {

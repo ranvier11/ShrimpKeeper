@@ -67,18 +67,17 @@
             app.has_error = true
             //app.error = err;
             app.$buefy.toast.open('Incorrect login or password');
-            console.log(app.res);
+            //console.log(app.res);
           },
-
-
           rememberMe: true,
           fetchUser: true
 
         })
       },
+      //log in shrimpkeeper with test acount
       demo() {
-                this.email = "test@test";
-                this.password = "testtest";
+                this.email = "test123@test";
+                this.password = "test123";
                 this.login();
             },
     }
