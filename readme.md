@@ -6,7 +6,7 @@
 <ul>
   <li>Create account using Your email</li>
   <li>Add Your tanks to database</li>
-  <li>Add regularly water measure<li>
+  <li>Add regularly water measure</li>
   <li>Check tank's chart to see how paremeters change</li>
   <li>Remember that some paremetres are colerated (i.e Ph/kh)</li>
 </ul>
